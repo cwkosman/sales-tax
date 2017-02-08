@@ -23,23 +23,22 @@ var companySalesData = [
 ];
 
 function calculateSalesTax(salesData, taxRates) {
-  var calculated = salesData.reduce((vendorFinances,vendor,i) => {
-    console.log(vendor.name);
+  return salesData.reduce((vendorFinances, vendor, i) => {
+    const finances = vendorFinances[vendor.name]
     if (!vendorFinances[vendor.name]) {
       vendorFinances[vendor.name] = {
         totalSales: 0,
         totalTaxes: 0
       };
     }
-    provincialSales = vendor.sales.reduce((a,b) => a + b, 0);
-    vendorFinances[vendor.name]["totalSales"] += provincialSales;
-    vendorFinances[vendor.name]["totalTaxes"] += provincialSales * taxRates[vendor.province];
+    provincialSales = vendor.sales.reduce((a, b) => a + b, 0);
+    vendorFinances[vendor.name].totalSales += provincialSales;
+    vendorFinances[vendor.name].totalTaxes += provincialSales * taxRates[vendor.province];
     return vendorFinances;
   }, {});
-  console.log(calculated)
 }
 
-var results = calculateSalesTax(companySalesData, salesTaxRates);
+console.log(calculateSalesTax(companySalesData, salesTaxRates));
 
 /* Expected Results:
 {
